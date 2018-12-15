@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+
+set source [lindex $argv 0]
+set destination [lindex $argv 1]
+set password_file [lindex $argv 2]
+
+spawn rsync -avz $source $destination
+expect "password:"
+send [exec cat $password_file]
+send "\n"
+expect eof
+exit 0
